@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package go.micro.service.cart;
+
+service Cart {
+	// 添加购物车
+	rpc AddCart (CartInfo) returns (RespAddCart) {}
+	// 清空购物车
+	rpc CleanCart (ReqClean) returns (Resp) {}
+	// 添加购物号商品数量
+	rpc IncrCart(ReqIncr) returns (Resp) {}
+	// 减少购物号商品数量
+	rpc DecrCart(ReqDecr) returns (Resp) {}
+	// 根据购物车id删除
+	rpc DeleteCartById(ReqCartId) returns (Resp) {}
+	// 获取购物车所有商品
+	rpc GetAll(ReqGetAll) returns (RespGetAll) {}
+}
+
+message CartInfo {
+	int64 id = 1;
+	int64 user_id = 2; // 用户id
+	int64 product_id = 3; // 商品id
+	int64 size_id = 4; // 型号id
+	int64 num = 5; // 数量
+}
+
+message RespAddCart {
+	int64 cart_id = 1; // 购物车id
+	string msg = 2;
+}
+
+message ReqClean {
+	int64 user_id = 1; // 用户id
+}
+
+message Resp {
+	string msg = 1;
+}
+
+message ReqIncr {
+	int64 cart_id = 1; // 购物车id
+	int64 change_num = 2; // 修改的数量
+}
+
+message ReqDecr {
+	int64 cart_id = 1; // 购物车id
+	int64 change_num = 2; // 修改的数量
+}
+
+message ReqCartId {
+	int64 cart_id = 1; // 购物车id
+}
+
+message ReqGetAll {
+	int64 user_id = 1; // 用户id
+}
+
+message RespGetAll {
+	repeated CartInfo cart_info = 1;
+}

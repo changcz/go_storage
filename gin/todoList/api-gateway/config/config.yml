@@ -1,0 +1,16 @@
+server:
+  domain: api-gateway
+  port: :4000
+  version: 1.0
+  jwtSecret: changz
+
+redis:
+  address: 127.0.0.1:6379
+  password:
+
+etcd:
+  address: 127.0.0.1:2379
+
+domain:
+  user: user
+  task: task

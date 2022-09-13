@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package git.micro.service.category;
+
+service Category {
+    // 创建分类
+    rpc CreateCategory(CategoryRequest) returns(CreateCategoryResponse){}
+    // 更新分类
+    rpc UpdateCategory(CategoryRequest) returns(UpdateCategoryResponse){}
+    // 删除分类
+    rpc DeleteCategory(DeleteCategoryRequest) returns(DeleteCategoryResponse){}
+    // 根据分类名称查找
+    rpc FindCategoryByName(FindByNameRequest) returns(CategoryResponse){}
+    // 根据分类ID查找
+    rpc FindCategoryById(FindByIdRequest) returns(CategoryResponse){}
+    // 根据分类等级查找
+    rpc FindCategoryByLevel(FindByLevelRequest) returns(FindAllResponse){}
+    // 根据分类父类查找
+    rpc FindCategoryByParent(FindByParentRequest) returns(FindAllResponse){}
+    // 获取所有分类
+    rpc FindAllCategory(FindAllRequest) returns(FindAllResponse){}
+}
+
+message CategoryRequest{
+    string category_name = 1; // 分类名称
+    uint32 category_level = 2; // 分类等级
+    int64 category_parent = 3; // 父级分类
+    string category_image = 4; // 分类图片
+    string category_description = 5; //分类描述
+}
+
+message CreateCategoryResponse {
+    string message = 1;
+    int64 category_id = 2; // 分类id
+}
+
+message UpdateCategoryResponse {
+    string message = 1;
+}
+
+message DeleteCategoryRequest {
+    int64 category_id = 1; // 分类id
+}
+
+message DeleteCategoryResponse {
+    string message = 1;
+}
+
+message FindByNameRequest {
+    string category_name = 1; // 分类名称
+}
+
+message CategoryResponse {
+    int64 category_id = 1; // 分类id
+    string category_name = 2; // 分类名称
+    uint32 category_level = 3; // 分类等级
+    int64 category_parent = 4; // 父级分类
+    string category_images = 5; // 分类图片
+    string category_description = 6; //分类描述
+}
+
+message FindByIdRequest {
+    int64 category_id = 1; // 分类id
+}
+
+message FindByLevelRequest {
+    uint32 level = 1; // 分类等级
+}
+
+message FindByParentRequest{
+    int64 parent_id = 1; // 父级分类
+}
+
+message FindAllRequest {
+    // 分页
+}
+
+message FindAllResponse {
+    repeated CategoryResponse category = 1;
+}
